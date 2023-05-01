@@ -7,13 +7,17 @@ function App() {
   const [user, setUser]=useState(undefined)
   const [type, setType]=useState(undefined)
 
+  function handleLogin(u, t){
+    setType(t);
+    setUser(u); 
+  }
+
   return (
-
-    
-
     <>
       <Routes>
-        <Route exact path="/login" element={<Login/>}/>
+        <Route exact path="/login" element={<Login handleLogin={handleLogin}/>}/>
+        <Route exact path="/" element={<Login handleLogin={handleLogin}/>}/>
+
       </Routes>
     </>
   )
