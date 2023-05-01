@@ -47,7 +47,8 @@ function Login({handleLogin})
             .then(r=>r.json())
             .then(data=>{
                 try{
-                    handleLogin(data.username, data.type)
+                    handleLogin(data.username, data.type);
+                    nav('/');
                 }
                 catch{
                    alert(data.message)
@@ -69,7 +70,8 @@ function Login({handleLogin})
             .then(r=>r.json())
             .then(data=>{
                 try{
-                    handleLogin(data.username, data.type)
+                    handleLogin(data.username, data.type);
+                    nav('/');
                 }
                 catch{
                    alert(data.message)
