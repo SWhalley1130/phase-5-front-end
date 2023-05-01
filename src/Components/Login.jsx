@@ -1,9 +1,23 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
+import { UserContext } from "../user_context";
 
-function Login({handleLogin})
+function Login()
 {
+    const nav=useNavigate()
+    const {user, setUser} =useContext(UserContext)
+
+    if(user){
+        useEffect(()=>{
+            setTimeout(()=>{
+                nav('/')
+            },1500)
+        },[])
+        return (
+            <h1>Already logged in, redirecting to homepage.</h1>
+        )
+    }
 
     const [formData, setFormData]=useState({
         email: '',
@@ -13,7 +27,6 @@ function Login({handleLogin})
     });
 
     const [pageDisplayed, setPageDisplayed]=useState('Login');
-    const nav=useNavigate()
 
 
     function handleChange(e){
@@ -47,7 +60,7 @@ function Login({handleLogin})
             .then(r=>r.json())
             .then(data=>{
                 try{
-                    handleLogin(data.username, data.type);
+                    setUser({username:data.username, type:data.type});
                     nav('/');
                 }
                 catch{
@@ -70,7 +83,7 @@ function Login({handleLogin})
             .then(r=>r.json())
             .then(data=>{
                 try{
-                    handleLogin(data.username, data.type);
+                    setUser({username:data.username, type:data.type});
                     nav('/');
                 }
                 catch{
@@ -82,7 +95,7 @@ function Login({handleLogin})
     }
 
     return (
-        <>
+        <div>
         <h1 className="text-xxl font-bold">Chicken Tinders</h1><br/>
             {pageDisplayed=="Login" ? 
                 <>
@@ -119,7 +132,7 @@ function Login({handleLogin})
                 <h2 className="block mb-2 text-lg font-bold text-gray-900">Return to <span className="text-blue-600" onClick={e=>setPageDisplayed("Login")} >log in page.</span></h2>
             </>
             }
-        </>
+        </div>
     )
 
 }
