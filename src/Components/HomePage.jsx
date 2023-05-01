@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from "react";
 import { useNavigate } from "react-router";
 import { UserContext} from "../user_context";
+import Nav from "./Nav";
 
 
 function HomePage(){
@@ -19,15 +20,17 @@ function HomePage(){
         <>
             <h1>Please Login to View Profile.</h1> <br/>
             <button onClick={e=>nav('/login')} className="w-full text-white bg-yellow-500 hover:bg-yellow-400 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:focus:ring-primary-800">Login</button>
-
         </>
     )
 
     return (
-        <div>
+        <>
+            <Nav/>
+            <div  style={{width:'50%', maxWidth:'500px', margin:'auto'}}>
             <h1>Welcome, {user.username}.</h1> <br/>
             <button onClick={handleClick} className="w-full text-white bg-yellow-500 hover:bg-yellow-400 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:focus:ring-primary-800">Logout</button>
-        </div>
+            </div>
+        </>
     )
 }
 

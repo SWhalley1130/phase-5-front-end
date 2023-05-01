@@ -95,8 +95,9 @@ function Login()
     }
 
     return (
-        <div>
-        <h1 className="text-xxl font-bold">Chicken Tinders</h1><br/>
+        <div style={{width:'100%', height:'100%', marginTop:'25px'}} className="bg-no-repeat bg-contain bg-top bg-[url('../public/chicken_tendies.webp')]">
+        <div style={{width:'50%', maxWidth:'500px', margin:'auto'}}>
+        <h1 className="text-xxl font-bold" style={{textAlign:'center'}}>Chicken Tinders</h1><br/>
             {pageDisplayed=="Login" ? 
                 <>
                     <h2 style={{textAlign:'center', fontSize:'1.5em' }} className="block mb-2 font-bold text-gray-900">Sign in to your account</h2>
@@ -132,6 +133,7 @@ function Login()
                 <h2 className="block mb-2 text-lg font-bold text-gray-900">Return to <span className="text-blue-600" onClick={e=>setPageDisplayed("Login")} >log in page.</span></h2>
             </>
             }
+        </div>
         </div>
     )
 
