@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import '../Stylesheets/App.css'
 import Login from './Login';
 import HomePage from './HomePage';
+import Profile from './Profile';
 
 import { UserProvider, UserContext } from '../user_context';
 
@@ -11,8 +12,7 @@ function App() {
 
 
   const {user, setUser}=useContext(UserContext);
-
-
+  
   useEffect(()=>
   {
     fetch(`/api/login`)
@@ -20,7 +20,7 @@ function App() {
     .then(data=>
     {
       try{
-        setUser({username:data.username, type:data.type});
+        setUser({username:data.username, id:data.id, type:data.type});
       }
       catch{
         return null;
@@ -32,6 +32,7 @@ function App() {
     <>
       <UserProvider>
         <Routes>
+          <Route exact path="/profile" element={<Profile/>}/>
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path="/" element={<HomePage/>}/>
         </Routes>

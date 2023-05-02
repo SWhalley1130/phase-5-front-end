@@ -60,7 +60,7 @@ function Login()
             .then(r=>r.json())
             .then(data=>{
                 try{
-                    setUser({username:data.username, type:data.type});
+                    setUser({username:data.username, id:data.id, type:data.type});
                     nav('/');
                 }
                 catch{
@@ -83,7 +83,7 @@ function Login()
             .then(r=>r.json())
             .then(data=>{
                 try{
-                    setUser({username:data.username, type:data.type});
+                    setUser({username:data.username, id:data.id, type:data.type});
                     nav('/');
                 }
                 catch{
