@@ -4,6 +4,7 @@ import '../Stylesheets/App.css'
 import Login from './Login';
 import HomePage from './HomePage';
 import Profile from './Profile';
+import People from './People';
 
 import { UserProvider, UserContext } from '../user_context';
 
@@ -34,7 +35,9 @@ function App() {
         <Routes>
           <Route exact path="/profile" element={<Profile/>}/>
           <Route exact path="/login" element={<Login/>}/>
+          <Route exact path="/people" element={<People/>}/>
           <Route exact path="/" element={<HomePage/>}/>
+          
         </Routes>
       </UserProvider>
     </>

@@ -18,8 +18,6 @@ function Profile(){
         },[])
     }
 
-    console.log(user)
-
     useEffect(()=>{
         fetch(`/api/friends`)
         .then(r=>r.json())

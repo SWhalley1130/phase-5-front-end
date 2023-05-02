@@ -50,10 +50,10 @@ function Nav()
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
-                                <button className="bg-yellow-600 text-white rounded-md hover:bg-yellow-400 px-3 py-2 text-sm font-medium">Home</button>
-                                <button className=" text-white bg-yellow-600 hover:bg-yellow-400 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Restaurants</button>
-                                <button className="text-white bg-yellow-600 hover:bg-yellow-400 hover:text-white rounded-md px-3 py-2 text-sm font-medium">People</button>
-                                <button className="text-white bg-yellow-600 hover:bg-yellow-400 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</button>
+                                <button onClick={e=>nav('/')} className="bg-yellow-600 text-white rounded-md hover:bg-yellow-400 px-3 py-2 text-sm font-medium">Home</button>
+                                {/* <button onClick={e=>nav('/')} className=" text-white bg-yellow-600 hover:bg-yellow-400 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Restaurants</button> */}
+                                <button onClick={e=>nav('/people')} className="text-white bg-yellow-600 hover:bg-yellow-400 hover:text-white rounded-md px-3 py-2 text-sm font-medium">People</button>
+                                {/* <button onClick={e=>nav('/')} className="text-white bg-yellow-600 hover:bg-yellow-400 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</button> */}
                             </div>
                         </div>
                     </div>
