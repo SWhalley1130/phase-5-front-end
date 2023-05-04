@@ -71,7 +71,7 @@ function Nav()
                             </div>
                             <div className={menuShown} role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
                                 <a onClick={e=>nav('/profile')} className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
-                                <a onClick={handleLogout}className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Logout</a>
+                                <a onClick={e=>{handleLogout(); nav('/')}}className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Logout</a>
                             </div>
                         </div>
                     </div>

@@ -17,23 +17,28 @@ function People() {
             return nav('/');
         }, [])
     }
+    else{
+        useEffect(() => {
+            fetch(`/api/users`)
+                .then(r => r.json())
+                .then(data => {
+                    let filtered = data.filter(u=>u.id!=user.id)
+                    setAllUsers(filtered)
+                })
+    
+            getFriends()
+    
+            setIsLoaded(true)
+        }, [])
+    
+    }
 
-    useEffect(() => {
-        fetch(`/api/users`)
-            .then(r => r.json())
-            .then(data => {
-                let filtered = data.filter(u=>u.id!=user.id)
-                setAllUsers(filtered)
-            })
-
+    function getFriends(){
         fetch(`/api/friends`)
-            .then(r =>r.json())
-            .then(data =>setFriends(data))
+        .then(r =>r.json())
+        .then(data =>setFriends(data))
+    }
 
-        setIsLoaded(true)
-    }, [])
-
-    //console.log(friends)
 
 
     function evalIfFriend(u){
@@ -50,17 +55,6 @@ function People() {
             }
         })
         return test[0]
-
-        // let test = friends.filter(fr=>{
-        //     if (Object.values(fr).includes(u.id))
-        //     {
-        //             return true 
-        //     }
-        // })
-        // if (test.length>0){
-        //     return true;
-        // }
-        // return false; 
     }
 
     return (
@@ -69,7 +63,7 @@ function People() {
             {isLoaded
                 ? <div style={{ width: '80%', maxWidth: '80rem', margin: 'auto', padding: '28px' }}>
                     {allUsers.map(u => 
-                      <PersonBar person={u} isFriend={evalIfFriend(u)}/>
+                      <PersonBar key={u.id} getFriends={getFriends} person={u} isFriend={evalIfFriend(u)}/>
                     )}
                 </div>
                 : <>Loading...</>

@@ -9,22 +9,48 @@ function HomePage(){
     const nav=useNavigate()
     const {user, setUser}=useContext(UserContext);
 
+
+    // if (!user){
+    //   useEffect(()=>
+    //   {
+    //     fetch(`/api/login`)
+    //     .then(r=>{
+    //       if (r.status!=200){
+    //         return null
+    //       }
+    //       return r.json();
+    //     })
+    //     .then(data=>
+    //     {
+    //       try{
+    //         setUser({username:data.username, id:data.id, type:data.type});
+    //       }
+    //       catch{
+    //         return null;
+    //       }
+    //     })
+    //   }, [])  
+    // }
     useEffect(()=>
     {
       fetch(`/api/login`)
-      .then(r=>r.json())
+      .then(r=>{
+        if (r.status!=200){
+          return null
+        }
+        return r.json();
+      })
       .then(data=>
       {
         try{
-          console.log("Setting user...")
           setUser({username:data.username, id:data.id, type:data.type});
         }
         catch{
           return null;
         }
       })
-    }, [])
-  
+    }, [])  
+
 
 
     return (

@@ -59,14 +59,14 @@ function Login()
             })
             .then(r=>r.json())
             .then(data=>{
-                try{
+                if (data.hasOwnProperty('username')){
                     setUser({username:data.username, id:data.id, type:data.type});
                     nav('/');
                 }
-                catch{
-                   alert(data.message)
-                }
-            })
+                else{
+                    alert(data.message)
+                }}
+            )
         }
         else {
             if (formData.email=='' || formData.password=='' || formData.username==''){

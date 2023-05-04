@@ -1,19 +1,32 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { useNavigate } from "react-router";
+import { UserContext } from "../user_context";
 
-function PersonBar({person, isFriend}){
+function PersonBar({person, isFriend, getFriends}){
+
+    const { user, setUser } = useContext(UserContext);
+
 
     function handleFriend(person){
         if (isFriend=='Not Friends'){
             fetch(`/api/friends`,{
-                
+                method: 'POST',
+                headers: {
+                    'Content-Type':"application/json",
+                },
+                body: JSON.stringify({friend_one_id:user.id, friend_two_id:person.id})
+            })
+            .then (r=>r.json())
+            .then(data=>{
+                console.log(data)
+                getFriends()
             })
         }
         else if (isFriend=="Pending"){
-            return 'Accept request'
+            console.log("Clicked Pending!")
         }
         else if (isFriend=="Friends") {
-            return 'Remove Friend'
+            console.log("Clicked Friends!")
         }
     }
 

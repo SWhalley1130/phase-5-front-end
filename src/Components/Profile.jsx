@@ -17,18 +17,20 @@ function Profile(){
             return nav('/');
         },[])
     }
-
-    useEffect(()=>{
-        fetch(`/api/friends`)
-        .then(r=>r.json())
-        .then(data=>setFriends(data))
-
-        fetch(`/api/users/${user.id}`)
-        .then(r=>r.json())
-        .then(data=>setAllUserInfo(data))
-
-        setIsLoaded(true)
-    },[])
+    else{
+        useEffect(()=>{
+            fetch(`/api/friends`)
+            .then(r=>r.json())
+            .then(data=>setFriends(data))
+    
+            fetch(`/api/users/${user.id}`)
+            .then(r=>r.json())
+            .then(data=>setAllUserInfo(data))
+    
+            setIsLoaded(true)
+        },[])
+    }
+    
 
 
     return (
