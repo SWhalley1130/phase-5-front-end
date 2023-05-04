@@ -9,6 +9,23 @@ function HomePage(){
     const nav=useNavigate()
     const {user, setUser}=useContext(UserContext);
 
+    useEffect(()=>
+    {
+      fetch(`/api/login`)
+      .then(r=>r.json())
+      .then(data=>
+      {
+        try{
+          console.log("Setting user...")
+          setUser({username:data.username, id:data.id, type:data.type});
+        }
+        catch{
+          return null;
+        }
+      })
+    }, [])
+  
+
 
     return (
         <>

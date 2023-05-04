@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Nav from './Nav'
 import { useNavigate } from "react-router";
 import { UserContext } from "../user_context";
+import PersonBar from "./PersonBar";
 
 function People() {
 
@@ -20,16 +21,47 @@ function People() {
     useEffect(() => {
         fetch(`/api/users`)
             .then(r => r.json())
-            .then(data => setAllUsers(data))
+            .then(data => {
+                let filtered = data.filter(u=>u.id!=user.id)
+                setAllUsers(filtered)
+            })
 
         fetch(`/api/friends`)
-            .then(r => r.json())
-            .then(data => setFriends(data))
+            .then(r =>r.json())
+            .then(data =>setFriends(data))
 
         setIsLoaded(true)
     }, [])
 
-    console.log('allUsers', allUsers)
+    //console.log(friends)
+
+
+    function evalIfFriend(u){
+
+        let test=friends.map(fr=>{
+            if (Object.values(fr).includes(u.id) && fr.accepted==true){
+                return "Friends"
+            }
+            else if (Object.values(fr).includes(u.id) && fr.accepted==false){
+                return "Pending"
+            }
+            else{
+                return "Not Friends"
+            }
+        })
+        return test[0]
+
+        // let test = friends.filter(fr=>{
+        //     if (Object.values(fr).includes(u.id))
+        //     {
+        //             return true 
+        //     }
+        // })
+        // if (test.length>0){
+        //     return true;
+        // }
+        // return false; 
+    }
 
     return (
         <>
@@ -37,11 +69,7 @@ function People() {
             {isLoaded
                 ? <div style={{ width: '80%', maxWidth: '80rem', margin: 'auto', padding: '28px' }}>
                     {allUsers.map(u => 
-                        <div style={{display: 'flex', justifyContent: 'space-between', alignContent: 'start'}}>
-                            <p>{u.username}</p>
-                            <p>{u.email}</p>
-                            <p>{u.id}</p>
-                        </div>
+                      <PersonBar person={u} isFriend={evalIfFriend(u)}/>
                     )}
                 </div>
                 : <>Loading...</>
