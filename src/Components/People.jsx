@@ -27,7 +27,6 @@ function People() {
                 })
     
             getFriends()
-    
             setIsLoaded(true)
         }, [])
     
@@ -44,17 +43,24 @@ function People() {
     function evalIfFriend(u){
 
         let test=friends.map(fr=>{
+            //console.log("Checking id "+u.id +" against "+fr.friend_one_id+' and ' +fr.friend_two_id)
             if (Object.values(fr).includes(u.id) && fr.accepted==true){
                 return "Friends"
             }
-            else if (Object.values(fr).includes(u.id) && fr.accepted==false){
-                return "Pending"
+            else if (Object.values(fr).includes(u.id) && fr.friend_two_id==u.id){
+                return "Sent Request"
+            }
+            else if (Object.values(fr).includes(u.id) && fr.friend_one_id==u.id){
+                return "Incoming Request"
             }
             else{
                 return "Not Friends"
             }
         })
-        return test[0]
+        if (test.includes("Sent Request")) return "Sent Request"
+        if (test.includes("Friends")) return "Friends"
+        if (test.includes("Incoming Request")) return "Incoming Request"
+        if (test.includes("Not Friends")) return "Not Friends"
     }
 
     return (
@@ -63,7 +69,7 @@ function People() {
             {isLoaded
                 ? <div style={{ width: '80%', maxWidth: '80rem', margin: 'auto', padding: '28px' }}>
                     {allUsers.map(u => 
-                      <PersonBar key={u.id} getFriends={getFriends} person={u} isFriend={evalIfFriend(u)}/>
+                      <PersonBar key={u.id} getFriends={getFriends} person={u} isFriend={evalIfFriend(u)} setFriends={setFriends}/>
                     )}
                 </div>
                 : <>Loading...</>

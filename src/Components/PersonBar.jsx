@@ -6,7 +6,6 @@ function PersonBar({person, isFriend, getFriends}){
 
     const { user, setUser } = useContext(UserContext);
 
-
     function handleFriend(person){
         if (isFriend=='Not Friends'){
             fetch(`/api/friends`,{
@@ -18,15 +17,43 @@ function PersonBar({person, isFriend, getFriends}){
             })
             .then (r=>r.json())
             .then(data=>{
-                console.log(data)
                 getFriends()
             })
         }
-        else if (isFriend=="Pending"){
-            console.log("Clicked Pending!")
+        else if (isFriend=="Incoming Request"){
+            fetch(`/api/friends/1`, {
+                method: "PATCH", 
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({user1:user.id, user2:person.id, accepted:true})
+            })
+            .then(r=>{
+                if (r.ok){
+                    return r.json();
+                }
+                throw r; 
+            })
+            .then(data=>getFriends())
+        }
+        else if (isFriend=="Sent Request"){
+            console.log("Clicked Sent Request!")
         }
         else if (isFriend=="Friends") {
-            console.log("Clicked Friends!")
+            fetch(`/api/friends/1`, {
+                method: 'DELETE',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body: JSON.stringify({user1:user.id, user2:person.id})
+            })
+            .then(r=>{
+                if (r.ok){
+                    return r.json();
+                }
+                throw r; 
+            })
+            .then(data=>getFriends())
         }
     }
 
@@ -34,11 +61,14 @@ function PersonBar({person, isFriend, getFriends}){
         if (isFriend=='Not Friends'){
             return 'Add as friend'
         }
-        else if (isFriend=="Pending"){
-            return 'Accept request'
+        else if (isFriend=="Sent Request"){
+            return 'Sent request'
+        }
+        else if (isFriend=="Incoming Request"){
+            return "Accept request"
         }
         else if (isFriend=="Friends") {
-            return 'Remove Friend'
+            return 'Remove friend'
         }
     }
 
